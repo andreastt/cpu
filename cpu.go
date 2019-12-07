@@ -1,36 +1,37 @@
-// cpu runs shell commands on a remote system preserving the local
-// environment.
-//
-// cpu provides a thin layer around ssh(1) that attempts to deduce
-// which directory on the remote the command should be run in.  When
-// there is an equivalent directory to the current working directory
-// on the remote system, the command gets executed under that:
-//
-// 	% cd src/gecko/
-// 	% cpu -r buildmachine ./mach build
-//
-// Sometimes it is necessary to give cpu extra instructions for
-// which directory to run the command under:
-//
-// 	% cpu -r buildmachine:~/src/gecko/ ./mach build
-//
-// cpu attaches the local TTY to the remote TTY so that interactive
-// programs such as top(1) can also be used:
-//
-// 	% cpu -r buildmachine top
-//
-// The connection closes when the interactive program terminates.
-//
-// Used standalone, cpu does not offer many benefits over ssh(1)
-// with a few extra arguments.  However when combined with a bit of
-// shell magic to automatically set CPU_REMOTE (-r) as you cd into a
-// directory where you want commands to be run on a remote CPU machine,
-// it all becomes quite powerful:
-//
-// 	...
-// 	% cd src/gecko/
-// 	% cpu ./mach build
+/*
+cpu runs shell commands on a remote system preserving the local
+environment.
 
+cpu provides a thin layer around ssh(1) that attempts to deduce
+which directory on the remote the command should be run in.  When
+there is an equivalent directory to the current working directory
+on the remote system, the command gets executed under that:
+
+	% cd src/gecko/
+	% cpu -r buildmachine ./mach build
+
+Sometimes it is necessary to give cpu extra instructions for which
+directory to run the command under:
+
+	% cpu -r buildmachine:~/src/gecko/ ./mach build
+
+cpu attaches the local TTY to the remote TTY so that interactive
+programs such as top(1) can also be used:
+
+	% cpu -r buildmachine top
+
+The connection closes when the interactive program terminates.
+
+Used standalone, cpu does not offer many benefits over ssh(1) with
+a few extra arguments.  However when combined with a bit of shell
+magic to automatically set CPU_REMOTE (-r) as you cd into a directory
+where you want commands to be run on a remote CPU machine, it all
+becomes quite powerful:
+
+	...
+	% cd src/gecko/
+	% cpu ./mach build
+*/
 package main // import "sny.no/cmd/cpu"
 
 import (
