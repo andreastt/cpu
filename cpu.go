@@ -32,7 +32,7 @@ becomes quite powerful:
 	% cd src/gecko/
 	% cpu ./mach build
 */
-package main // import "sny.no/cmd/cpu"
+package main // import "sny.no/cpu"
 
 import (
 	"flag"
